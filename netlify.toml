@@ -1,8 +1,0 @@
-[build]
-  publish = "."  # Статические файлы в корне
-  functions = "."  # Функции в корне
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
